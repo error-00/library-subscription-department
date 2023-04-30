@@ -1,0 +1,88 @@
+{% extends 'abonent/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h4 class="display-4" align="center">Читацькі білети</h4>
+{% if message %}
+{% if 'Неможливо' in message %}
+<div class="alert alert-danger">{{ message }}</div>
+{% else %}
+<div class="alert alert-success">{{ message }}</div>
+{% endif %}
+{% endif %}
+<label for="sort_by" style="padding-left: 59%;">Сортувати по:</label>
+
+<div class="row">
+    <div class="col-md-5">
+        <form method="get" action="{% url 'read-tick' %}">
+            <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon1">🔍</button>
+                <input type="text" class="form-control" placeholder="Пошук" name="q">
+            </div>
+            <a href="{% url 'add-tick' %}">
+                <button type="button" class="btn btn-primary">Додати</button>
+            </a>
+        </form>
+    </div>
+    <div class="col-md-7" style="padding-left: 17%;">
+        <form method="get" action="{% url 'read-tick' %}">
+            <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="submit">👉</button>
+                <select name="sort_by" id="sort_by" class="form-select">
+                    <option value="num">Номер</option>
+                    <option value="name">ПІБ</option>
+                    <option value="date">Дата народження</option>
+                </select>
+            </div>
+            <label><input type="radio" name="sort_order" value="asc" checked> По зростанню</label>
+            <label style="padding-left: 10%;"><input type="radio" name="sort_order" value="desc"> По спаданню</label>
+        </form>
+    </div>
+</div>
+
+<br>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-secondary">
+        <tr>
+            <th>Номер</th>
+            <th>ПІБ</th>
+            <th>Адреса</th>
+            <th>Робочий телефон</th>
+            <th>Домашній телефон</th>
+            <th>Дата народження</th>
+            <th>Змінити</th>
+            <th>Видалити</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for reader in readers %}
+        <tr>
+            <td style="width:15%">{{ reader.read_ticket_num }}</td>
+            <td style="width:20%">{{ reader.PIB }}</td>
+            <td style="width:17%">{{ reader.home_adress }}</td>
+            <td style="width:16%">{{ reader.tel_work }}</td>
+            <td style="width:15%">{{ reader.tel_home }}</td>
+            <td style="width:17%">{{ reader.birth_date }}</td>
+            <td>
+                <form method="post" action="{% url 'change-tick' reader.read_ticket_num %}" class="form-1">
+                    {% csrf_token %}
+                    <button class="btn btn-success" type="submit">Змінити</button>
+                </form>
+            </td>
+            <td>
+                <form method="post" action="{% url 'delete-tick' reader.read_ticket_num %}" class="form-1">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="delete">
+                    <button class="btn btn-danger" type="submit">X</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

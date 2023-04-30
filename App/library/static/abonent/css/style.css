@@ -1,0 +1,13 @@
+.link-head a{
+    color: black;
+    text-decoration: none;
+}
+
+.link-head a:hover{
+    color: black;
+    text-decoration: underline;
+}
+
+.align-top{
+    width: 25%;
+}

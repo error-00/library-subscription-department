@@ -1,0 +1,35 @@
+{% extends 'abonent/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h4 class="display-4" align="center">Список виданих книг</h4>
+<br>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-secondary">
+        <tr>
+            <th>Книга</th>
+            <th>ISBN</th>
+            <th>Дата видачі</th>
+            <th>Дата очікуваного повернення</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for book in issued_books %}
+        <tr>
+            <td style="width:23%">{{ book.copies_inventory_num.book_ISBN }}</td>
+            <td style="width:16%">{{ book.copies_inventory_num.book_ISBN.ISBN }}</td>
+            <td style="width:14%">{{ book.date_issue}}</td>
+            <td style="width:15%">{{ book.date_must_return }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

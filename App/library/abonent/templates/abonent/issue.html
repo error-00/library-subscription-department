@@ -1,0 +1,62 @@
+{% extends 'abonent/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h4 class="display-4" align="center">Видача</h4>
+<br>
+{% if message %}
+<div class="alert alert-danger" style="width: 70%; margin-left: auto; margin-right: auto;">{{ message }}</div>
+{% endif %}
+<div class="issue-book" style="width: 70%; margin-left: auto; margin-right: auto;">
+    <form method="POST">
+        {% csrf_token %}
+        <p>Читач:</p>
+        {{ form.readers }}
+        <br><br>
+        <p>Книга:</p>
+        {{ form.book }}
+        <br><br>
+        <p>Дата видачі:</p>
+        {{ form.date_issue }}
+        <br>
+        <p>Очікувана дата повернення:</p>
+        {{ form.date_must_return}}
+        <br>
+        <button class="btn btn-primary" type="submit" style="padding-right: 20px; padding-left: 20px;">Видати
+        </button>
+        <a href="{% url 'issue-return' %}" class="btn btn-warning" style="margin-left: 3%;">Cancel</a>
+    </form>
+    {% if errors %}
+    <ul>
+        {% for error in errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<script>
+<!--# Пошук у селект-->
+$(document).ready(function() {
+  $('.select2').select2();
+});
+
+
+<!--Автоматичне оновлення значення очікуваної дати повернення книги-->
+var date_issue = document.getElementById("id_date_issue");
+  var date_must_return = document.getElementById("id_date_must_return");
+
+  date_issue.onchange = function() {
+    var date = new Date(date_issue.value);
+    date.setDate(date.getDate() + 14); // Установка даты, когда книгу нужно вернуть
+    date_must_return.value = date.toISOString().slice(0,10); // Форматирование даты в формат ГГГГ-ММ-ДД
+  };
+
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'abonent/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h4 class="display-4" align="center">Пошук книг</h4>
+<label for="sort_by" style="padding-left: 59%;">Сортувати по:</label>
+
+<div class="row">
+    <div class="col-md-5">
+        <form method="get" action="{% url 'search-book' %}">
+            <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon1">🔍</button>
+                <input type="text" class="form-control" placeholder="Тарас Шевченко" name="q">
+            </div>
+        </form>
+    </div>
+    <div class="col-md-7" style="padding-left: 17%;">
+        <form method="get" action="{% url 'search-book' %}">
+            <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="submit">👉</button>
+                <select name="sort_by" id="sort_by" class="form-select">
+                    <option value="name">Назва</option>
+                    <option value="author">Автор</option>
+                    <option value="city">Місто</option>
+                    <option value="year">Рік видання</option>
+                    <option value="pages">Кількість сторінок</option>
+                    <option value="cost">Вартість</option>
+                    <option value="copies">Кількість екземплярів</option>
+                </select>
+            </div>
+            <label><input type="radio" name="sort_order" value="asc" checked> По зростанню</label>
+            <label style="padding-left: 10%;"><input type="radio" name="sort_order" value="desc"> По спаданню</label>
+        </form>
+    </div>
+</div>
+
+
+<br>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-secondary">
+        <tr>
+            <th>ISBN</th>
+            <th>Назва</th>
+            <th>Автор</th>
+            <th>Місто видання</th>
+            <th>Видавництво</th>
+            <th>Рік видання</th>
+            <th>Кількість сторінок</th>
+            <th>Вартість</th>
+            <th>Кількість екземплярів</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+        <tr>
+            <td style="width:15%">{{ book.ISBN }}</td>
+            <td style="width:12%">{{ book.name }}</td>
+            <td style="width:12%">
+                {% for author in book.authors.all %}
+                {{ author.first_name }} {{ author.last_name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td style="width:10%">{{ book.public_city }}</td>
+            <td style="width:10%">{{ book.publisher_ID_publisher }}</td>
+            <td style="width:12%">{{ book.year }}</td>
+            <td style="width:10%">{{ book.page_num }}</td>
+            <td style="width:10%">
+                {% for copy in book.copies_set.all %}
+                {{ copy.cost }}
+                {% endfor %}
+            </td>
+            <td style="width:9%">{{ book.copies_num }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

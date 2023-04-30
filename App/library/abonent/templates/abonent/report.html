@@ -1,0 +1,47 @@
+{% extends 'abonent/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h4 class="display-4" align="center">Звіт</h4>
+<br>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" style="width: 55%; margin-left: auto; margin-right: auto;">
+
+        <tbody>
+        <tr>
+            <td style="width: 50%;"><b>Кількість читачів</b></td>
+            <td style="width: 50%;">{{ readers_count }}</td>
+        </tr>
+        <tr>
+            <td><b>Кількість книг</b></td>
+            <td>{{ books_count }}</td>
+        </tr>
+        <tr>
+            <td><b>Кількість виданих книг</b></td>
+            <td>{{ issued_books_count }}</td>
+        </tr>
+        <tr>
+            <td><b>Кількість боржників</b></td>
+            <td>{{ debtors_count }}</td>
+        </tr>
+        <tr>
+            <td><b>Кількість авторів</b></td>
+            <td>{{ authors_count }}</td>
+        </tr>
+        <tr>
+            <td><b>Кількість видань</b></td>
+            <td>{{ publishers_count }}</td>
+        </tr>
+        <tr>
+            <td><b>Загальна кількість книг</b></td>
+            <td>{{ total_copies_count }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

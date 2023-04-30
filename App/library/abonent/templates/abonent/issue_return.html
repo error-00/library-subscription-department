@@ -1,0 +1,61 @@
+{% extends 'abonent/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h4 class="display-4" align="center">Видача і повернення книг</h4>
+<br>
+{% if message %}
+<div class="alert alert-success">{{ message }}</div>
+<br>
+{% endif %}
+
+<div class="table-responsive">
+
+    <table class="table align-middle">
+
+        <thead class="table-secondary">
+        <tr>
+            <th class="link-head"><a href="{% url 'issue-book' %}">Видача книги</a></th>
+            <th class="link-head"><a href="{% url 'return-book' %}">Повернення книги</a></th>
+            <th class="link-head"><a href="{% url 'deptors' %}">Список боржників</a></th>
+            <th class="link-head"><a href="{% url 'del-books' %}">Видані книги</a></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td class="align-top">Видача книги читачу. Книги видаються не більше, як на 14 днів. Тут вводити інформацію
+                про те, хто взяв книгу, та яку книгу
+            </td>
+            <td class="align-top">Тут відмічається повернення книги. Вводити інформацію хто повернув, яку книгу повернув
+                та коли. У результаті буде видно, повернено з затримкою чи ні
+            </td>
+            <td class="align-top">Інформація про всіх боржників бібліотеки знаходиться на цій сторінці
+            </td>
+            <td class="align-top">Інформація про усі видані книги, та їх місця у бібліотеці
+            </td>
+        </tr>
+        <tr>
+            <td class="align-top" align="center">
+                <img src="{% static 'abonent/images/issue_book.png' %}" width="50%" alt="Books">
+            </td>
+            <td class="align-top" align="center">
+                <img src="{% static 'abonent/images/return_book.png' %}" width="50%" alt="Books">
+            </td>
+            <td class="align-top" align="center">
+                <img src="{% static 'abonent/images/deptor.png' %}" width="50%" alt="Books">
+            </td>
+            <td class="align-top" align="center">
+                <img src="{% static 'abonent/images/del_books.png' %}" width="50%" alt="Books">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'abonent/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h4 class="display-4" align="center">Список боржників</h4>
+<label for="sort_by" style="padding-left: 59%;">Сортувати по:</label>
+
+<div class="row">
+    <div class="col-md-5">
+        <form method="get" action="{% url 'deptors' %}">
+            <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon1">🔍</button>
+                <input type="text" class="form-control" placeholder="Соколовський Ігор" name="q">
+            </div>
+        </form>
+    </div>
+    <div class="col-md-7" style="padding-left: 17%;">
+        <form method="get" action="{% url 'deptors' %}">
+            <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="submit">👉</button>
+                <select name="sort_by" id="sort_by" class="form-select">
+                    <option value="read_ticket">Читацький білет</option>
+                    <option value="reader">Читач</option>
+                    <option value="book">Книга</option>
+                    <option value="date_issue">Дата видачі</option>
+                    <option value="date_must_return">Дата очікуваного повернення</option>
+                </select>
+            </div>
+            <label><input type="radio" name="sort_order" value="asc" checked> По зростанню</label>
+            <label style="padding-left: 10%;"><input type="radio" name="sort_order" value="desc"> По спаданню</label>
+        </form>
+    </div>
+</div>
+<br>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-secondary">
+        <tr>
+            <th>Номер читацького білету</th>
+            <th>Читач</th>
+            <th>Книга</th>
+            <th>ISBN</th>
+            <th>Дата видачі</th>
+            <th>Дата очікуваного повернення</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for book in issued_books %}
+        <tr>
+            <td style="width:14%">{{ book.readers_read_ticket_num.read_ticket_num }}</td>
+            <td style="width:18%">{{ book.readers_read_ticket_num.PIB }}</td>
+            <td style="width:23%">{{ book.copies_inventory_num.book_ISBN }}</td>
+            <td style="width:16%">{{ book.copies_inventory_num.book_ISBN.ISBN }}</td>
+            <td style="width:14%">{{ book.date_issue}}</td>
+            <td style="width:15%">{{ book.date_must_return }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

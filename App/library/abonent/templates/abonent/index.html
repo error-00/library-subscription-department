@@ -1,0 +1,61 @@
+{% extends 'abonent/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<h4 class="display-4" align="center">Абонентний відділ</h4>
+<br>
+
+<div class="table-responsive">
+
+    <table class="table align-middle">
+
+        <thead class="table-secondary">
+        <tr>
+            {% for m in menu %}
+            {% if m.name != 'Головна' %}
+            <th class="link-head"><a href="{% url m.url_name %}">{{ m.name }}</a></th>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td class="align-top">У формі ви можете знайти книгу, яка вам потрібна. А також сортувати іх за різними
+                критеріям
+            </td>
+            <td class="align-top">На цій сторінці можна переглянути всіх читачів бібліотеки. Сортувати їх за різними
+                критеріям. А також додати нового читача
+            </td>
+            <td class="align-top">Ця сторінка дозволяє видати книгу читачу. А також зафіксувати повернення книги
+                читачем.
+            </td>
+            <td class="align-top">Тут можна передивитися звіт по бібліотеці. Наприклад: кількість читачів, кількість
+                киг та інше.
+            </td>
+        </tr>
+        <tr>
+            <td class="align-top" align="center">
+                <img src="{% static 'abonent/images/book.png' %}" width="65%" alt="Books">
+            </td>
+            <td class="align-top" align="center">
+                <img src="{% static 'abonent/images/ticket.png' %}" width="70%" alt="Books">
+            </td>
+            <td class="align-top" align="center">
+                <img src="{% static 'abonent/images/issue-return.png' %}" width="70%" alt="Books">
+            </td>
+            <td class="align-top" align="center">
+                <img src="{% static 'abonent/images/report.png' %}" width="70%" alt="Books">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
